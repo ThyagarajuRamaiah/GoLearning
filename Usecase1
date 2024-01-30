@@ -1,0 +1,12 @@
+// Use case 1 : NSP Product Family Map
+// *******************************
+// Create a  Map for Product family : "key being family name","values being list of node types"
+
+// for eg : SR family : 7750,7450,7950
+
+// tasks to perform :
+
+// 1. Print family -> nodes
+// 2. Add new Family
+// 3. Check if a family contains a node and add if it doesn't (eg if 7250 is present SR or not )
+// 4. Delete if a node is depricated
