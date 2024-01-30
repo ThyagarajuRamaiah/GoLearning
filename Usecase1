@@ -1,15 +1,17 @@
-// Use case 1 : NSP Product Family Map
-// *******************************
-// Create a  Map for Product family : "key being family name","values being list of node types"
+/*Usecase 1 requirements
 
-// for eg : SR family : 7750,7450,7950
+NSP Product Family Map
+*******************************
+Create a  Map for Product family : "key being family name","values being list of node types"
 
-// tasks to perform :
+for eg : SR family : 7750,7450,7950
 
-// 1. Print family -> nodes
-// 2. Add new Family
-// 3. Check if a family contains a node and add if it doesn't (eg if 7250 is present SR or not )
-// 4. Delete if a node is depricated
+tasks to perform :
+
+1. Print family -> nodes
+2. Add new Family
+3. Check if a family contains a node and add if it doesn't (eg if 7250 is present SR or not )
+4. Delete if a node is depricated*/
 
 
 package main
@@ -19,7 +21,7 @@ import (
 )
 
 // ProductFamilyMap represents the map of product families to node types
-type ProductFamilyMap map[string][]int
+type ProductFamilyMap map[string][]string
 
 // PrintFamilyNodes prints the family and its associated nodes
 func (pfm ProductFamilyMap) PrintFamilyNodes() {
@@ -29,12 +31,12 @@ func (pfm ProductFamilyMap) PrintFamilyNodes() {
 }
 
 // AddFamily adds a new family with the specified nodes
-func (pfm ProductFamilyMap) AddFamily(family string, nodes []int) {
+func (pfm ProductFamilyMap) AddFamily(family string, nodes []string) {
 	pfm[family] = nodes
 }
 
 // AddNodeToFamily checks if a family exists and adds a node to it if not present
-func (pfm ProductFamilyMap) AddNodeToFamily(family string, node int) {
+func (pfm ProductFamilyMap) AddNodeToFamily(family string, node string) {
 	if nodes, ok := pfm[family]; ok {
 		// Check if the node already exists in the family
 		nodeExists := false
@@ -55,7 +57,7 @@ func (pfm ProductFamilyMap) AddNodeToFamily(family string, node int) {
 }
 
 // DeleteNode deletes a node from a family if it exists
-func (pfm ProductFamilyMap) DeleteNode(family string, node int) {
+func (pfm ProductFamilyMap) DeleteNode(family string, node string) {
 	if nodes, ok := pfm[family]; ok {
 		// Find the index of the node in the family
 		index := -1
@@ -82,31 +84,30 @@ func main() {
 	productFamilyMap := make(ProductFamilyMap)
 
 	// Add some initial data
-	productFamilyMap.AddFamily("SR", []int{7750, 7450, 7950})
+	productFamilyMap.AddFamily("SR", []string{"7750, 7450, 7950"})
 
 	// Print the initial family nodes
 	fmt.Println("Initial Product Family Map:")
 	productFamilyMap.PrintFamilyNodes()
 
 	// Add a new family
-	productFamilyMap.AddFamily("CR", []int{7450, 7950, 7250})
+	productFamilyMap.AddFamily("IPedge", []string{"7210, 7705, 7705-Hm/Hmc"})
 
 	// Print the updated family nodes
-	fmt.Println("\nProduct Family Map after adding 'CR' family:")
+	fmt.Println("\nProduct Family Map after adding 'IPedge' family:")
 	productFamilyMap.PrintFamilyNodes()
 
 	// Add a node to an existing family
-	productFamilyMap.AddNodeToFamily("SR", 7250)
+	productFamilyMap.AddNodeToFamily("SR", "7250")
 
 	// Print the updated family nodes
 	fmt.Println("\nProduct Family Map after adding node '7250' to 'SR' family:")
 	productFamilyMap.PrintFamilyNodes()
 
 	// Delete a node from an existing family
-	productFamilyMap.DeleteNode("SR", 7450)
+	productFamilyMap.DeleteNode("SR", "7450")
 
 	// Print the updated family nodes
 	fmt.Println("\nProduct Family Map after deleting node '7450' from 'SR' family:")
 	productFamilyMap.PrintFamilyNodes()
 }
-
