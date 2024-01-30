@@ -13,3 +13,42 @@ OrganizingTeam:
 =============
 TeamMembers -> slice
 PrimaryContact(has to be within the Funteam) */
+
+
+package main
+
+import (
+	"fmt"
+)
+
+type OrganizingTeam struct {
+	TeamMembers    []string
+	PrimaryContact string
+}
+
+type NSPEvent struct {
+	EventDate      string
+	EventName      string
+	PrimaryContact string
+	OrganizingTeam OrganizingTeam
+}
+
+func main() {
+	team := OrganizingTeam{
+		TeamMembers:    []string{"Thyagu", "Karthick", "Anurag", "Aman", "Yeswanth"},
+		PrimaryContact: "Yeswanth",
+	}
+
+	event := NSPEvent{
+		EventDate:      "2024-02-02",
+		EventName:      "NSP Event",
+		PrimaryContact: "Sowjanya",
+		OrganizingTeam: team,
+	}
+
+	fmt.Println("Event Name:", event.EventName)
+	fmt.Println("Event Date:", event.EventDate)
+	fmt.Println("Primary Contact:", event.PrimaryContact)
+	fmt.Println("Organizing Team Members:", event.OrganizingTeam.TeamMembers)
+	fmt.Println("Organizing Team Primary Contact:", event.OrganizingTeam.PrimaryContact)
+}
