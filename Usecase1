@@ -10,3 +10,103 @@
 // 2. Add new Family
 // 3. Check if a family contains a node and add if it doesn't (eg if 7250 is present SR or not )
 // 4. Delete if a node is depricated
+
+
+package main
+
+import (
+	"fmt"
+)
+
+// ProductFamilyMap represents the map of product families to node types
+type ProductFamilyMap map[string][]int
+
+// PrintFamilyNodes prints the family and its associated nodes
+func (pfm ProductFamilyMap) PrintFamilyNodes() {
+	for family, nodes := range pfm {
+		fmt.Printf("%s -> %v\n", family, nodes)
+	}
+}
+
+// AddFamily adds a new family with the specified nodes
+func (pfm ProductFamilyMap) AddFamily(family string, nodes []int) {
+	pfm[family] = nodes
+}
+
+// AddNodeToFamily checks if a family exists and adds a node to it if not present
+func (pfm ProductFamilyMap) AddNodeToFamily(family string, node int) {
+	if nodes, ok := pfm[family]; ok {
+		// Check if the node already exists in the family
+		nodeExists := false
+		for _, n := range nodes {
+			if n == node {
+				nodeExists = true
+				break
+			}
+		}
+
+		// Add the node if it doesn't exist
+		if !nodeExists {
+			pfm[family] = append(nodes, node)
+		}
+	} else {
+		fmt.Printf("Family '%s' does not exist\n", family)
+	}
+}
+
+// DeleteNode deletes a node from a family if it exists
+func (pfm ProductFamilyMap) DeleteNode(family string, node int) {
+	if nodes, ok := pfm[family]; ok {
+		// Find the index of the node in the family
+		index := -1
+		for i, n := range nodes {
+			if n == node {
+				index = i
+				break
+			}
+		}
+
+		// Remove the node if it exists
+		if index != -1 {
+			pfm[family] = append(nodes[:index], nodes[index+1:]...)
+		} else {
+			fmt.Printf("Node %d does not exist in family '%s'\n", node, family)
+		}
+	} else {
+		fmt.Printf("Family '%s' does not exist\n", family)
+	}
+}
+
+func main() {
+	// Initialize the product family map
+	productFamilyMap := make(ProductFamilyMap)
+
+	// Add some initial data
+	productFamilyMap.AddFamily("SR", []int{7750, 7450, 7950})
+
+	// Print the initial family nodes
+	fmt.Println("Initial Product Family Map:")
+	productFamilyMap.PrintFamilyNodes()
+
+	// Add a new family
+	productFamilyMap.AddFamily("CR", []int{7450, 7950, 7250})
+
+	// Print the updated family nodes
+	fmt.Println("\nProduct Family Map after adding 'CR' family:")
+	productFamilyMap.PrintFamilyNodes()
+
+	// Add a node to an existing family
+	productFamilyMap.AddNodeToFamily("SR", 7250)
+
+	// Print the updated family nodes
+	fmt.Println("\nProduct Family Map after adding node '7250' to 'SR' family:")
+	productFamilyMap.PrintFamilyNodes()
+
+	// Delete a node from an existing family
+	productFamilyMap.DeleteNode("SR", 7450)
+
+	// Print the updated family nodes
+	fmt.Println("\nProduct Family Map after deleting node '7450' from 'SR' family:")
+	productFamilyMap.PrintFamilyNodes()
+}
+
