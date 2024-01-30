@@ -1,0 +1,15 @@
+// To have two structs defined : "NSPEvent" & "OrganizingTeam"
+
+// "NSPEvent" should have "OrganizingTeam" Embedded/Nested
+// Other features can be :
+
+// NSPEvent:
+// =========
+// Event date,
+// Event name,
+// PrimaryContact(Can be outside the OrganizingTeam/Funteam)
+
+// OrganizingTeam:
+// =============
+// TeamMembers -> slice
+// PrimaryContact(has to be within the Funteam)
