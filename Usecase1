@@ -51,7 +51,7 @@ func main() {
 	}
 }
 
-// Helper function to check if a slice contains a string
+// function to check if a slice contains a string
 func contains(slice []string, str string) bool {
 	for _, s := range slice {
 		if s == str {
@@ -61,7 +61,7 @@ func contains(slice []string, str string) bool {
 	return false
 }
 
-// Helper function to remove a string from a slice
+// function to remove a string from a slice
 func remove(slice []string, str string) []string {
 	for i, s := range slice {
 		if s == str {
